@@ -1,4 +1,6 @@
-import customtkinter, pyautogui, time, threading
+import customtkinter, pyautogui
+from time import sleep
+from threading import Thread
 
 ## Global Variables
 running = False  
@@ -26,14 +28,14 @@ def start_clicking():
 
     if running:
         running = False
-        time.sleep(1.00000000001)   
+        sleep(1.00000000001)   
         countdown_seconds = 0
         update_countdown(0)  
 
     if not running:  
         countdown_seconds = calcTime()
         running = True
-        threading.Thread(target=clicker).start()
+        Thread(target=clicker).start()
         
 def clicker():
     global running, countdown_seconds
@@ -45,7 +47,7 @@ def clicker():
                 update_countdown(0)
                 return
             update_countdown(i)
-            time.sleep(1)        
+            sleep(1)        
 
         if running:
             pyautogui.leftClick()
@@ -61,7 +63,10 @@ customtkinter.set_appearance_mode('dark')
 customtkinter.set_default_color_theme('dark-blue')
 
 root = customtkinter.CTk()
-root.geometry('400x400')
+root.geometry('340x340')
+
+root.title('Clicky')
+root.iconbitmap('clicky.ico')
 
 frame = customtkinter.CTkFrame(master=root)
 frame.pack(pady=20, padx=60, fill='both', expand=False)
